@@ -7,6 +7,7 @@ import (
 	"strings"
 	"sync"
 	"time"
+	"unicode"
 )
 
 func main() {
@@ -50,6 +51,10 @@ func touch(sem chan bool, wg *sync.WaitGroup, path string, loc *time.Location) {
 		return
 	}
 
+	if !isTimePortion(parts[2]) {
+		parts[2] = "090000"
+	}
+
 	// NOTES(cixtor): create fake datetime string.
 	date := fmt.Sprintf(
 		"%s-%s-%sT%s:%s:%s-08:00",
@@ -75,4 +80,13 @@ func touch(sem chan bool, wg *sync.WaitGroup, path string, loc *time.Location) {
 		fmt.Printf("cannot change time `%s`: %s\n", name, err)
 		return
 	}
+}
+
+func isTimePortion(s string) bool {
+	for _, c := range s {
+		if !unicode.IsDigit(c) {
+			return false
+		}
+	}
+	return true
 }
