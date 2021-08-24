@@ -1,6 +1,7 @@
 package main
 
 import (
+	"flag"
 	"fmt"
 	"os"
 	"path/filepath"
@@ -11,6 +12,28 @@ import (
 )
 
 func main() {
+	flag.Usage = func() {
+		fmt.Println("Change access and modification times of the named file(s).")
+		fmt.Println()
+		flag.PrintDefaults()
+		fmt.Println()
+		fmt.Println("Usage:")
+		fmt.Println("  chtimes IMG_*.jpg")
+		fmt.Println("  chtimes IMG_*.png")
+		fmt.Println("  chtimes IMG_*.gif")
+		fmt.Println("  chtimes VID_*.mp4")
+		fmt.Println("  chtimes VID_*.mov")
+		fmt.Println("  chtimes AUD_*.opus")
+		fmt.Println("  chtimes TXT_*.json")
+		fmt.Println("  chtimes DOC_*.pdf")
+		fmt.Println("  chtimes -tz -08:00 IMG*")
+		fmt.Println("  chtimes -tz -07:00 IMG*")
+		fmt.Println("  chtimes -tz PDT IMG*")
+		fmt.Println("  chtimes -tz PST IMG*")
+	}
+
+	flag.Parse()
+
 	wg := new(sync.WaitGroup)
 	sem := make(chan bool, 23)
 
@@ -21,7 +44,7 @@ func main() {
 		return
 	}
 
-	for _, path := range os.Args {
+	for _, path := range flag.Args() {
 		wg.Add(1)
 		go touch(sem, wg, path, loc)
 	}
