@@ -11,7 +11,11 @@ import (
 	"unicode"
 )
 
+var concurrency int
+
 func main() {
+	flag.IntVar(&concurrency, "c", 20, "Maximum number of concurrent operations")
+
 	flag.Usage = func() {
 		fmt.Println("Change access and modification times of the named file(s).")
 		fmt.Println()
@@ -35,7 +39,7 @@ func main() {
 	flag.Parse()
 
 	wg := new(sync.WaitGroup)
-	sem := make(chan bool, 23)
+	sem := make(chan bool, concurrency)
 
 	loc, err := time.LoadLocation("America/Vancouver")
 
