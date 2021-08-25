@@ -15,9 +15,12 @@ var concurrency int
 
 var timezone string
 
+var tzoffset string
+
 func main() {
 	flag.IntVar(&concurrency, "c", 20, "Maximum number of concurrent operations")
 	flag.StringVar(&timezone, "tz", "America/Vancouver", "Base timezone to set the time for each file")
+	flag.StringVar(&tzoffset, "tzo", "-08:00", "Base timezone offset to set the time for each file")
 
 	flag.Usage = func() {
 		fmt.Println("Change access and modification times of the named file(s).")
@@ -87,13 +90,14 @@ func touch(sem chan bool, wg *sync.WaitGroup, path string, loc *time.Location) {
 
 	// NOTES(cixtor): create fake datetime string.
 	date := fmt.Sprintf(
-		"%s-%s-%sT%s:%s:%s-08:00",
+		"%s-%s-%sT%s:%s:%s%x",
 		parts[1][0:4], // year
 		parts[1][4:6], // month
 		parts[1][6:8], // day
 		parts[2][0:2], // hours
 		parts[2][2:4], // minutes
 		parts[2][4:6], // seconds
+		tzoffset,
 	)
 
 	t, err := time.Parse(time.RFC3339, date)
