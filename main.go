@@ -13,8 +13,11 @@ import (
 
 var concurrency int
 
+var timezone string
+
 func main() {
 	flag.IntVar(&concurrency, "c", 20, "Maximum number of concurrent operations")
+	flag.StringVar(&timezone, "tz", "America/Vancouver", "Base timezone to set the time for each file")
 
 	flag.Usage = func() {
 		fmt.Println("Change access and modification times of the named file(s).")
@@ -41,7 +44,7 @@ func main() {
 	wg := new(sync.WaitGroup)
 	sem := make(chan bool, concurrency)
 
-	loc, err := time.LoadLocation("America/Vancouver")
+	loc, err := time.LoadLocation(timezone)
 
 	if err != nil {
 		fmt.Println(err)
