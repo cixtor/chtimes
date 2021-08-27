@@ -36,10 +36,11 @@ func main() {
 		fmt.Println("  chtimes AUD_*.opus")
 		fmt.Println("  chtimes TXT_*.json")
 		fmt.Println("  chtimes DOC_*.pdf")
-		fmt.Println("  chtimes -tz -08:00 IMG*")
-		fmt.Println("  chtimes -tz -07:00 IMG*")
-		fmt.Println("  chtimes -tz PDT IMG*")
-		fmt.Println("  chtimes -tz PST IMG*")
+		fmt.Println("  chtimes -tz America/Los_Angeles IMG*")
+		fmt.Println("  chtimes -tzo -08:00 IMG*")
+		fmt.Println("  chtimes -tzo -07:00 IMG*")
+		fmt.Println("  chtimes -tzo PDT IMG*")
+		fmt.Println("  chtimes -tzo PST IMG*")
 	}
 
 	flag.Parse()
