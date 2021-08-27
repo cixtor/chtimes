@@ -45,15 +45,15 @@ func main() {
 
 	flag.Parse()
 
-	wg := new(sync.WaitGroup)
-	sem := make(chan bool, concurrency)
-
 	loc, err := time.LoadLocation(timezone)
 
 	if err != nil {
 		fmt.Println(err)
-		return
+		os.Exit(1)
 	}
+
+	wg := new(sync.WaitGroup)
+	sem := make(chan bool, concurrency)
 
 	for _, path := range flag.Args() {
 		wg.Add(1)
