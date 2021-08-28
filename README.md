@@ -41,3 +41,17 @@ AUD_20210618_131342.opus >>> 2021-06-18 13:13:42 -0800
 TXT_20210720_201457.json >>> 2021-07-20 20:14:57 -0800
 DOC_20210826_095022.pdf  >>> 2021-08-26 09:50:22 -0800
 ```
+
+Then list the files one more time to see the changes:
+
+```shell
+$ ls -l
+-rw-r--r--  Jan  1  2021  IMG_20210101_031550.jpg
+-rw-r--r--  Feb  4  2021  IMG_20210204_124927.png
+-rw-r--r--  Mar  9  2021  IMG_20210309_224507.gif
+-rw-r--r--  Apr 11  2021  VID_20210411_123940.mp4
+-rw-r--r--  May 15  2021  VID_20210515_131809.mov
+-rw-r--r--  Jun 18  2021  AUD_20210618_131342.opus
+-rw-r--r--  Jul 20  2021  TXT_20210720_201457.json
+-rw-r--r--  Aug 26  2021  DOC_20210826_095022.pdf
+```
