@@ -91,7 +91,7 @@ func touch(sem chan bool, wg *sync.WaitGroup, path string, loc *time.Location) {
 
 	// NOTES(cixtor): create fake datetime string.
 	date := fmt.Sprintf(
-		"%s-%s-%sT%s:%s:%s%x",
+		"%s-%s-%sT%s:%s:%s%s",
 		parts[1][0:4], // year
 		parts[1][4:6], // month
 		parts[1][6:8], // day
